@@ -26,9 +26,8 @@ public class StepDefinitions {
         messageFromBob = message;
     }
 
-    @Then("Alice hears Bob's message")
+    @Then("Alice should hear Bob's message")
     public void aliceHearsBobMessage() {
-        //import junit assertions
         assertEquals(asList(messageFromBob), alice.getMessagesHeard());
     }
 }

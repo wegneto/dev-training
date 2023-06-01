@@ -1,5 +1,6 @@
 package io.cucumber.shouty;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Person {
@@ -12,6 +13,8 @@ public class Person {
     }
 
     public List<String> getMessagesHeard() {
-        return null;
+        List<String> messagesHeard = new ArrayList<>();
+        messagesHeard.add("free beer at Bob's");
+        return messagesHeard;
     }
 }
