@@ -1,5 +1,7 @@
 package io.cucumber.shouty;
 
+import java.util.HashMap;
+
 import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -10,34 +12,30 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class StepDefinitions {
 
-    private Person alice;
-    private Person bob;
     private String messageFromBob;
     private Network network;
+
+    private HashMap<String, Person> people;
 
     @Before
     public void createNetwork() {
         network = new Network();
+        people = new HashMap<>();
     }
 
-    @Given("a person named Alice")
-    public void a_person_named_alice() {
-        alice = new Person(network);
-    }
-
-    @Given("a person named Bob")
-    public void a_person_named_bob() {
-        bob = new Person(network);
+    @Given("a person named {word}")
+    public void a_person_named(String name) {
+        people.put(name, new Person(network));
     }
 
     @When("Bob shouts {string}")
     public void bobShouts(String message) {
-        bob.shout(message);
+        people.get("Bob").shout(message);
         messageFromBob = message;
     }
 
     @Then("Alice should hear Bob's message")
     public void aliceHearsBobMessage() {
-        assertEquals(asList(messageFromBob), alice.getMessagesHeard());
+        assertEquals(asList(messageFromBob), people.get("Alice").getMessagesHeard());
     }
 }
