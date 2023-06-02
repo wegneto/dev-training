@@ -15,6 +15,7 @@ public class StepDefinitions {
 
     @Given("Alice is located {int} metres from Bob")
     public void aliceIsLocatedMetresFromBob(int distance) {
+        Network network = new Network();
         alice = new Person();
         bob = new Person();
         alice.moveTo(distance);
@@ -29,5 +30,17 @@ public class StepDefinitions {
     @Then("Alice should hear Bob's message")
     public void aliceHearsBobMessage() {
         assertEquals(asList(messageFromBob), alice.getMessagesHeard());
+    }
+
+    @Given("a person named Alice")
+    public void a_person_named_alice() {
+        // Write code here that turns the phrase above into concrete actions
+        throw new io.cucumber.java.PendingException();
+    }
+
+    @Given("a person named Bob")
+    public void a_person_named_bob() {
+        // Write code here that turns the phrase above into concrete actions
+        throw new io.cucumber.java.PendingException();
     }
 }
