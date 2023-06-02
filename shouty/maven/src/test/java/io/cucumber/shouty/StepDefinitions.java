@@ -1,5 +1,6 @@
 package io.cucumber.shouty;
 
+import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -12,13 +13,21 @@ public class StepDefinitions {
     private Person alice;
     private Person bob;
     private String messageFromBob;
+    private Network network;
 
-    @Given("Alice is located {int} metres from Bob")
-    public void aliceIsLocatedMetresFromBob(int distance) {
-        Network network = new Network();
-        alice = new Person();
-        bob = new Person();
-        alice.moveTo(distance);
+    @Before
+    public void createNetwork() {
+        network = new Network();
+    }
+
+    @Given("a person named Alice")
+    public void a_person_named_alice() {
+        alice = new Person(network);
+    }
+
+    @Given("a person named Bob")
+    public void a_person_named_bob() {
+        bob = new Person(network);
     }
 
     @When("Bob shouts {string}")
@@ -30,17 +39,5 @@ public class StepDefinitions {
     @Then("Alice should hear Bob's message")
     public void aliceHearsBobMessage() {
         assertEquals(asList(messageFromBob), alice.getMessagesHeard());
-    }
-
-    @Given("a person named Alice")
-    public void a_person_named_alice() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
-    }
-
-    @Given("a person named Bob")
-    public void a_person_named_bob() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
     }
 }

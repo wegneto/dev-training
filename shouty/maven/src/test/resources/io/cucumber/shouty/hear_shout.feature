@@ -13,7 +13,8 @@ Feature: Hear shout
       Then Alice should hear Bob's message
 
     Scenario: Listener hears a different message
-      Given Alice is located 15 metres from Bob
+      Given a person named Alice
+      And a person named Bob
       When Bob shouts "Free coffee!"
       Then Alice should hear Bob's message
 
