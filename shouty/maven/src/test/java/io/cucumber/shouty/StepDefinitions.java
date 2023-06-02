@@ -12,9 +12,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class StepDefinitions {
 
-    private String messageFromBob;
+    private String messageSent;
     private Network network;
-
     private HashMap<String, Person> people;
 
     @Before
@@ -28,14 +27,14 @@ public class StepDefinitions {
         people.put(name, new Person(network));
     }
 
-    @When("Bob shouts {string}")
-    public void bobShouts(String message) {
-        people.get("Bob").shout(message);
-        messageFromBob = message;
+    @When("{person} shouts {string}")
+    public void personShouts(Person person, String message) {
+        people.get(person.getName()).shout(message);
+        messageSent = message;
     }
 
-    @Then("Alice should hear Bob's message")
-    public void aliceHearsBobMessage() {
-        assertEquals(asList(messageFromBob), people.get("Alice").getMessagesHeard());
+    @Then("{person} should hear Bob's message")
+    public void aliceHearsBobMessage(Person person) {
+        assertEquals(asList(messageSent), people.get(person.getName()).getMessagesHeard());
     }
 }
