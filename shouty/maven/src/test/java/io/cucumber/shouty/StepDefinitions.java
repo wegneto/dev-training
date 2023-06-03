@@ -2,8 +2,11 @@ package io.cucumber.shouty;
 
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import io.cucumber.java.Before;
+import io.cucumber.java.DataTableType;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -17,6 +20,21 @@ public class StepDefinitions {
     private Network network = new Network(DEFAULT_RANGE);
     private HashMap<String, Person> people;
 
+    static class Whereabouts {
+        public String name;
+        public Integer location;
+
+        public Whereabouts(String name, int location) {
+            this.name = name;
+            this.location = location;
+        }
+    }
+
+    @DataTableType
+    public Whereabouts definePerson(Map<String, String> entry) {
+        return new Whereabouts(entry.get("name"), Integer.parseInt(entry.get("location")));
+    }
+
     @Before
     public void before() {
         people = new HashMap<>();
@@ -25,6 +43,11 @@ public class StepDefinitions {
     @Given("a person named {word}")
     public void a_person_named(String name) {
         people.put(name, new Person(network, DEFAULT_RANGE));
+    }
+
+    @Given("people are located at")
+    public void people_are_located_at(List<Whereabouts> whereabouts) {
+        whereabouts.forEach(w -> people.put(w.name, new Person(network, w.location)));
     }
 
     @When("{word} shouts {string}")
@@ -48,11 +71,6 @@ public class StepDefinitions {
         this.network = new Network(range);
     }
 
-    @Given("a person named {word} is located at {int}")
-    public void a_person_named_is_located_at(String name, Integer location) {
-        people.put(name, new Person(network, location));
-    }
-
     @Then("Larry should not hear a shout")
     public void person_should_not_hear_sean_s_message() {
         assertEquals(0, people.get("Larry").getMessagesHeard().size());
@@ -62,5 +80,4 @@ public class StepDefinitions {
     public void sean_shouts() {
         people.get("Sean").shout("Hello, world");
     }
-
 }
