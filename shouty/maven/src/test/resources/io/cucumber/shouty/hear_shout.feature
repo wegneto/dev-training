@@ -37,5 +37,19 @@ Feature: Hear shout
       When Sean shouts "free beer at Sean's"
       And Sean shouts "free coffee at Sean's"
       Then Lucy hears the following messages:
-        | free beer at Sean's       |
-        | free coffee at Sean's     |
+        | free beer at Sean's   |
+        | free coffee at Sean's |
+
+  Rule: Maximum length of message is 180 characters
+    Scenario: Message is too long
+      Given a person named Sean
+      And a person named Lucy
+      When Sean shouts the following message
+        """
+        This is a really long message
+        so long in fact that I am not going to
+        be allowed to send it, at least if I keep
+        typing like this until the length is over
+        the limit of 180 characters.
+        """
+      Then Lucy should not hear a shout

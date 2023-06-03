@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class StepDefinitions {
 
-    private String messagesFromSean;
+    private String messageFromSean;
     private static final int DEFAULT_RANGE = 100;
     private Network network = new Network(DEFAULT_RANGE);
     private HashMap<String, Person> people;
@@ -56,12 +56,12 @@ public class StepDefinitions {
     @When("{word} shouts {string}")
     public void a_person_shouts(String person, String message) {
         people.get(person).shout(message);
-        messagesFromSean = message;
+        messageFromSean = message;
     }
 
     @Then("{word} should hear Sean's message")
     public void LucyHearsSeanMessage(String person) {
-        assertEquals(Collections.singletonList(messagesFromSean), people.get(person).getMessagesHeard());
+        assertEquals(Collections.singletonList(messageFromSean), people.get(person).getMessagesHeard());
     }
 
     @Then("Lucy should hear a shout")
@@ -74,9 +74,9 @@ public class StepDefinitions {
         this.network = new Network(range);
     }
 
-    @Then("Larry should not hear a shout")
-    public void person_should_not_hear_sean_s_message() {
-        assertEquals(0, people.get("Larry").getMessagesHeard().size());
+    @Then("{word} should not hear a shout")
+    public void person_should_not_hear_sean_s_message(String name) {
+        assertEquals(0, people.get(name).getMessagesHeard().size());
     }
 
     @When("Sean shouts")
@@ -93,5 +93,12 @@ public class StepDefinitions {
         }
 
         expectedMessages.diff(DataTable.create(actualMessages));
+    }
+
+    @When("Sean shouts the following message")
+    public void sean_shouts_the_following_message(String message) {
+        people.get("Sean").shout(message);
+        messageFromSean = message;
+        System.out.println("Sean shouts: " + message.length());
     }
 }
