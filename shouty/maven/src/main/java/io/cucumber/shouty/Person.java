@@ -5,22 +5,20 @@ import java.util.List;
 
 public class Person {
 
-    private String name;
     private final List<String> messagesHeard = new ArrayList<>();
     private final Network network;
+    private String name;
 
-    public Person(Network network) {
+    private int location;
+
+    public Person(Network network, int location) {
         this.network = network;
+        this.location = location;
         network.subscribe(this);
     }
 
-    public Person(String name) {
-        this.name = name;
-        this.network = null;
-    }
-
     public void shout(String message) {
-        network.broadcast(message);
+        network.broadcast(message, location);
     }
 
     public void hear(String message) {
@@ -37,5 +35,9 @@ public class Person {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getLocation() {
+        return location;
     }
 }
