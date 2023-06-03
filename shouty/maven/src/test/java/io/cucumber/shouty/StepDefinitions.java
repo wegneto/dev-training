@@ -1,12 +1,15 @@
 package io.cucumber.shouty;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import io.cucumber.datatable.DataTable;
 import io.cucumber.java.Before;
 import io.cucumber.java.DataTableType;
+import io.cucumber.java.Transpose;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -46,7 +49,7 @@ public class StepDefinitions {
     }
 
     @Given("people are located at")
-    public void people_are_located_at(List<Whereabouts> whereabouts) {
+    public void people_are_located_at(@Transpose List<Whereabouts> whereabouts) {
         whereabouts.forEach(w -> people.put(w.name, new Person(network, w.location)));
     }
 
@@ -79,5 +82,16 @@ public class StepDefinitions {
     @When("Sean shouts")
     public void sean_shouts() {
         people.get("Sean").shout("Hello, world");
+    }
+
+    @Then("Lucy hears the following messages:")
+    public void lucy_hears_the_following_messages(DataTable expectedMessages) {
+        List<List<String>> actualMessages = new ArrayList<>();
+        List<String> heard = people.get("Lucy").getMessagesHeard();
+        for (String message : heard) {
+            actualMessages.add(Collections.singletonList(message));
+        }
+
+        expectedMessages.diff(DataTable.create(actualMessages));
     }
 }
