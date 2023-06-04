@@ -99,6 +99,5 @@ public class StepDefinitions {
     public void sean_shouts_the_following_message(String message) {
         people.get("Sean").shout(message);
         messageFromSean = message;
-        System.out.println("Sean shouts: " + message.length());
     }
 }
