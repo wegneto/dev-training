@@ -11,57 +11,38 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.8</java.version>
+        <junit.version>4.13.1</junit.version>
+        <mockito.version>3.3.3</mockito.version>
+        <cucumber.version>6.9.1</cucumber.version>
+        <maven.compiler.version>3.8.1</maven.compiler.version>
+        <maven.surefire.version>2.22.2</maven.surefire.version>
     </properties>
-
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.junit</groupId>
-                <artifactId>junit-bom</artifactId>
-                <version>5.9.3</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <dependency>
-                <groupId>io.cucumber</groupId>
-                <artifactId>cucumber-bom</artifactId>
-                <version>7.12.0</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
 
     <dependencies>
         <dependency>
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-java</artifactId>
+            <version>${cucumber.version}</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
             <groupId>io.cucumber</groupId>
-            <artifactId>cucumber-junit-platform-engine</artifactId>
+            <artifactId>cucumber-junit</artifactId>
+            <version>${cucumber.version}</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
-            <groupId>org.junit.platform</groupId>
-            <artifactId>junit-platform-suite</artifactId>
-            <scope>test</scope>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
         </dependency>
 
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <!-- https://mvnrepository.com/artifact/org.mockito/mockito-core -->
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
-            <version>5.3.1</version>
+            <version>${mockito.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -71,7 +52,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.11.0</version>
+                <version>${maven.compiler.version}</version>
                 <configuration>
                     <encoding>UTF-8</encoding>
                     <source>${java.version}</source>
@@ -81,18 +62,107 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.1.0</version>
-                <configuration>
-                    <properties>
-                        <!-- Work around. Surefire does not include enough
-                             information to disambiguate between different
-                             examples and scenarios. -->
-                        <configurationParameters>
-                            cucumber.junit-platform.naming-strategy=long
-                        </configurationParameters>
-                    </properties>
-                </configuration>
+                <version>${maven.surefire.version}</version>
             </plugin>
         </plugins>
     </build>
 </project>
+
+<!--<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"-->
+<!--         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">-->
+<!--    <modelVersion>4.0.0</modelVersion>-->
+
+<!--    <groupId>cucumber-school</groupId>-->
+<!--    <artifactId>shouty</artifactId>-->
+<!--    <version>0.0.1</version>-->
+<!--    <packaging>jar</packaging>-->
+<!--    <name>Shouty</name>-->
+
+<!--    <properties>-->
+<!--        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>-->
+<!--        <java.version>1.8</java.version>-->
+<!--    </properties>-->
+
+<!--    <dependencyManagement>-->
+<!--        <dependencies>-->
+<!--            <dependency>-->
+<!--                <groupId>org.junit</groupId>-->
+<!--                <artifactId>junit-bom</artifactId>-->
+<!--                <version>5.9.3</version>-->
+<!--                <type>pom</type>-->
+<!--                <scope>import</scope>-->
+<!--            </dependency>-->
+<!--            <dependency>-->
+<!--                <groupId>io.cucumber</groupId>-->
+<!--                <artifactId>cucumber-bom</artifactId>-->
+<!--                <version>7.12.0</version>-->
+<!--                <type>pom</type>-->
+<!--                <scope>import</scope>-->
+<!--            </dependency>-->
+<!--        </dependencies>-->
+<!--    </dependencyManagement>-->
+
+<!--    <dependencies>-->
+<!--        <dependency>-->
+<!--            <groupId>io.cucumber</groupId>-->
+<!--            <artifactId>cucumber-java</artifactId>-->
+<!--            <scope>test</scope>-->
+<!--        </dependency>-->
+
+<!--        <dependency>-->
+<!--            <groupId>io.cucumber</groupId>-->
+<!--            <artifactId>cucumber-junit-platform-engine</artifactId>-->
+<!--            <scope>test</scope>-->
+<!--        </dependency>-->
+
+<!--        <dependency>-->
+<!--            <groupId>org.junit.platform</groupId>-->
+<!--            <artifactId>junit-platform-suite</artifactId>-->
+<!--            <scope>test</scope>-->
+<!--        </dependency>-->
+
+<!--        <dependency>-->
+<!--            <groupId>org.junit.jupiter</groupId>-->
+<!--            <artifactId>junit-jupiter</artifactId>-->
+<!--            <scope>test</scope>-->
+<!--        </dependency>-->
+
+<!--        &lt;!&ndash; https://mvnrepository.com/artifact/org.mockito/mockito-core &ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>org.mockito</groupId>-->
+<!--            <artifactId>mockito-core</artifactId>-->
+<!--            <version>5.3.1</version>-->
+<!--            <scope>test</scope>-->
+<!--        </dependency>-->
+<!--    </dependencies>-->
+
+<!--    <build>-->
+<!--        <plugins>-->
+<!--            <plugin>-->
+<!--                <groupId>org.apache.maven.plugins</groupId>-->
+<!--                <artifactId>maven-compiler-plugin</artifactId>-->
+<!--                <version>3.11.0</version>-->
+<!--                <configuration>-->
+<!--                    <encoding>UTF-8</encoding>-->
+<!--                    <source>${java.version}</source>-->
+<!--                    <target>${java.version}</target>-->
+<!--                </configuration>-->
+<!--            </plugin>-->
+<!--            <plugin>-->
+<!--                <groupId>org.apache.maven.plugins</groupId>-->
+<!--                <artifactId>maven-surefire-plugin</artifactId>-->
+<!--                <version>3.1.0</version>-->
+<!--                <configuration>-->
+<!--                    <properties>-->
+<!--                        &lt;!&ndash; Work around. Surefire does not include enough-->
+<!--                             information to disambiguate between different-->
+<!--                             examples and scenarios. &ndash;&gt;-->
+<!--                        <configurationParameters>-->
+<!--                            cucumber.junit-platform.naming-strategy=long-->
+<!--                        </configurationParameters>-->
+<!--                    </properties>-->
+<!--                </configuration>-->
+<!--            </plugin>-->
+<!--        </plugins>-->
+<!--    </build>-->
+<!--</project>-->

@@ -12,6 +12,11 @@ Feature: Hear shout
       When Sean shouts "free beer at Sean's"
       Then Lucy should hear Sean's message
 
+  Scenario: Creating a new scenario
+    Given this is new scenario
+    When I do something
+    Then I should see something
+
   Rule: Shouts should only be heard if listener is within range
     Scenario: Listener is within range
       Given the range is 100
