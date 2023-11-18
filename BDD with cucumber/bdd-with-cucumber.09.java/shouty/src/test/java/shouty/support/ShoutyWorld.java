@@ -7,7 +7,6 @@ import java.util.Map;
 
 import shouty.Network;
 import shouty.Person;
-import shouty.StepDefinitions;
 
 public class ShoutyWorld {
 
@@ -16,7 +15,7 @@ public class ShoutyWorld {
     public Map<String, Person> people = new HashMap<>();
     public Map<String, List<String>> messagesShoutedBy = new HashMap<>();
 
-    public void shout(Person person, String message, StepDefinitions stepDefinitions) {
+    public void shout(Person person, String message) {
         person.shout(message);
         List<String> messages = messagesShoutedBy.get(person.getName());
         if (messages == null) {
