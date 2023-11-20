@@ -18,7 +18,7 @@ public class ShoutyWorld{
         person.shout(message);
         List<String> messages = messagesShoutedBy.get(person.getName());
         if (messages == null) {
-            messages = new ArrayList<String>();
+            messages = new ArrayList<>();
             messagesShoutedBy.put(person.getName(), messages);
         }
         messages.add(message);

@@ -17,7 +17,7 @@ Feature: Premium account
       And Sean should have 15 credits
 
     @wip
-    Scenario: BUG #2789
+    Scenario: Sean mentions "buy" several times in one shout
       Given Sean has bought 30 credits
       When Sean shouts "buy, buy, buy!"
       Then Sean should have 25 credits
